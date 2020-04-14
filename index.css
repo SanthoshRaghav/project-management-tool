@@ -1,0 +1,136 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+body {
+    /* border: 4px solid red; */
+    height: 100vh;
+    background-color: #F5F7FA;
+}
+
+.container {
+    /* border: 6px solid teal; */
+    display: flex;
+    overflow-x: scroll;
+    height: 100vh;
+}
+
+.column-list {
+    /* border: 8px solid rgb(50, 181, 20); */
+    list-style-type: none;
+    display: flex;
+}
+
+.column {
+    background-color: #ffffff;
+    /* border: 1px solid navy; */
+    width: 400px;
+    height: calc(100vh - 15vh);
+    margin: 40px 20px 40px;
+    padding: 0 20px 50px;
+    overflow-y: scroll;
+    cursor: pointer;
+}
+
+
+.active:hover {
+    border: 1px solid #4786FF;
+    box-shadow: 0px 1px 6px #4786FF;
+}
+
+.column__heading {
+    margin: 20px 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+[contenteditable="true"] {
+    padding: 5px;
+    outline-color: #096dd9;
+    outline-width: 2px;
+}
+
+.cta {
+    flex-shrink: 0;
+    /* border: 3px solid magenta; */
+}
+
+.btn {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    height: 35px;
+    margin: 40px 40px 0;
+}
+
+.btn-primary {
+    background-color: #1890ff;
+}
+
+.btn-primary:hover {
+    background-color: #40a9ff;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.btn-primary:active {
+    background-color: #096dd9;
+}
+
+.list {
+    list-style-type: none;
+    overflow-y: scroll;
+    border-top: 1px solid #EBEDF0;
+}
+
+.item {
+    border: 1px solid #EBEDF0;
+    background-color: #ffffff;
+    padding: 25px 5px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.item__heading {
+    color: #54585A;
+    font-size: 20px;
+}
+
+.dragging-item {
+    opacity: .5;
+    background-color: blueviolet;
+    cursor: grabbing;
+}
+
+.dragging-column {
+    opacity: .5;
+    background-color: blueviolet;
+    cursor: grabbing;
+}
+
+.form {
+    display: flex;
+}
+
+.input-field {
+    height: 35px;
+    flex-grow: 1;
+}
+
+.form-btn {
+    margin: 0;
+    padding-left: 25px;
+    padding-right: 25px;
+}
