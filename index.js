@@ -13,9 +13,8 @@ function getElements() {
   lists = document.querySelectorAll(".list");
   items = document.querySelectorAll(".item");
   forms = document.querySelectorAll(".form");
+  deletes = document.querySelectorAll(".item__delete");
 }
-
-// getElements();
 
 /**
  *
@@ -28,7 +27,6 @@ function startItem(items) {
   items.forEach((item) => {
     item.addEventListener("dragstart", (e) => {
       e.stopPropagation();
-      console.log("start item");
       dragStartItem(item);
     });
   });
@@ -39,8 +37,6 @@ function dragStartItem(item) {
   pickedItem = item;
   item.classList.add("dragging-item");
 }
-
-// startItem(items);
 
 /**
  *
@@ -55,7 +51,6 @@ function overItem(items) {
       e.stopPropagation();
       e.preventDefault();
       if (pickedItem) {
-        console.log("over item");
         dragOverItem(e, item);
       }
     });
@@ -85,8 +80,6 @@ function calculateOverItemPosition(overedItem) {
   return elementPositions.top + elementPositions.height / 2;
 }
 
-// overItem(items);
-
 /**
  *
  * end ITEM
@@ -97,7 +90,6 @@ function endItem(items) {
   items.forEach((item) => {
     item.addEventListener("dragend", (e) => {
       e.stopPropagation();
-      console.log("end item");
       dragEndItem(item);
     });
   });
@@ -110,8 +102,6 @@ function dragEndItem(item) {
   overedItem = null;
 }
 
-// endItem(items);
-
 /**
  *
  * start COLUMN
@@ -123,7 +113,6 @@ function startColumn(columns) {
   columns.forEach((column) => {
     column.addEventListener("dragstart", (e) => {
       e.stopPropagation();
-      console.log("start column");
       dragStartColumn(column);
     });
   });
@@ -134,8 +123,6 @@ function dragStartColumn(column) {
   pickedColumn = column;
   column.classList.add("dragging-column");
 }
-
-// startColumn(columns);
 
 /**
  *
@@ -151,7 +138,6 @@ function overColumn(columns) {
       e.preventDefault();
       if (pickedColumn) {
         dragOverColumn(e, column);
-        console.log("**************");
       }
     });
   });
@@ -180,8 +166,6 @@ function calculateOverColumnPosition(overedColumn) {
   return elementPositions.left + elementPositions.width / 2;
 }
 
-// overColumn(columns);
-
 /**
  *
  * end COLUMN
@@ -192,7 +176,6 @@ function endColumn(columns) {
   columns.forEach((column) => {
     column.addEventListener("dragend", (e) => {
       e.stopPropagation();
-      console.log("end column");
       dragEndColumn(column);
     });
   });
@@ -205,17 +188,109 @@ function dragEndColumn(column) {
   overedColumn = null;
 }
 
-// endColumn(columns);
+/**
+ *
+ * delete ITEM
+ *
+ */
+
+function deleteItem() {
+  deletes.forEach((erase) => {
+    erase.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.target.parentElement.remove();
+    });
+  });
+}
 
 /**
  *
  * Initial Flow
  *
  */
-getElements();
-startItem(items);
-overItem(items);
-endItem(items);
-startColumn(columns);
-overColumn(columns);
-endColumn(columns);
+
+// main function
+function main() {
+  getElements();
+  startItem(items);
+  overItem(items);
+  endItem(items);
+  startColumn(columns);
+  overColumn(columns);
+  endColumn(columns);
+  deleteItem();
+  addEvtListenersToForm();
+}
+main();
+
+/**
+ *
+ * Add Column
+ *
+ */
+
+// add column
+function addColumn() {
+  let output = ` <li class="column active" draggable="true">
+    <h2 contenteditable="true" class="column__heading">Development</h2>
+    <ul class="list">
+    <li class="item" draggable="true">
+      <h3 class="item__heading">Released</h3>
+      <div contenteditable="true" class="item__description">
+        Thanks guys! for giving this nice task
+      </div>
+      <span class="item__delete">X</span>
+    </li>
+    </ul>
+    <form class="form">
+      <input type="text" name="name" class="input-field" id="input" />
+      <button type="submit" class="btn btn-primary form-btn">
+        Add
+      </button>
+    </form>
+  </li>`;
+  document.getElementById("column-list").innerHTML += output;
+  main();
+}
+
+/**
+ *
+ * Form
+ *
+ */
+
+// addEvtListenersToForm function
+function addEvtListenersToForm() {
+  forms.forEach((form) => {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      handleForm(form);
+    });
+  });
+}
+
+// handleForm function
+function handleForm(form) {
+  var inputVal = form.querySelector(".input-field").value;
+  if (!(inputVal === "")) {
+    var newItem = createEle(inputVal);
+    form.previousElementSibling.innerHTML += newItem;
+    quickUpdate();
+  }
+}
+
+// quickUpdate function
+function quickUpdate() {
+  items = document.querySelectorAll(".item");
+  deletes = document.querySelectorAll(".item__delete");
+  startItem(items);
+  overItem(items);
+  endItem(items);
+  deleteItem();
+}
+
+// createEle function
+function createEle(inputVal) {
+  return ` <li class="item" draggable="true"><h3 class="item__heading">${inputVal}</h3><div contenteditable="true" class="item__description">Thanks guys! for giving this nice task</div><span class="item__delete">X</span></li>`;
+}
