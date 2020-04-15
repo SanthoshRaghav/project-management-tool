@@ -4,8 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Project Management</title>
+    <link rel="shortcut icon" href="./icons/favicon.png" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <h1>Project Management</h1>
+    <h1 class="main-heading">Project <span class="main-word">Manager</span></h1>
+    <div class="container">
+      <div class="column-list" id="column-list">
+        <li class="column active" draggable="true">
+          <h2 contenteditable="true" class="column__heading">To Do</h2>
+          <ul class="list">
+            <li class="item" draggable="true">
+              <h3 class="item__heading">Bug Fix</h3>
+              <div contenteditable="true" class="item__description">
+                Thanks guys! for giving this nice task
+              </div>
+              <span class="item__delete">X</span>
+            </li>
+            <li class="item" draggable="true">
+              <h3 class="item__heading">Release</h3>
+              <div contenteditable="true" class="item__description">
+                Thanks guys! for giving this nice task
+              </div>
+              <span class="item__delete">X</span>
+            </li>
+          </ul>
+          <form class="form">
+            <input type="text" name="name" class="input-field" id="input" />
+            <button type="submit" class="btn btn-primary form-btn">
+              Add
+            </button>
+          </form>
+        </li>
+      </div>
+      <div class="cta">
+        <button type="button" class="btn btn-primary" onclick="addColumn()">
+          Add Column
+        </button>
+      </div>
+    </div>
+    <script src="index.js"></script>
   </body>
 </html>
